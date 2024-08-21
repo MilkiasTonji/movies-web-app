@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-const AddMovie = () => {
+const EditMovie = () => {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [title, setTitle] = useState<string | null>(null);
@@ -35,6 +35,10 @@ const AddMovie = () => {
         setPreviewUrl(null);
     };
 
+    const handleCancelForm = () => {
+        router.push("/movies")
+    }
+
     const handleSubmit = () => {
         if (!title || !publishingYear){
             return;
@@ -47,14 +51,9 @@ const AddMovie = () => {
         console.log("data submitting========== ", data)
     }
 
-
-    const handleCancelForm = () => {
-        router.push("/movies")
-    }
-
     return (
         <div className='w-full flex flex-col items-center justify-center p-12'>
-            <h1 className='text-h2 text-white pb-6'>Create a new movie</h1>
+            <h1 className='text-h2 text-white pb-6'>Edit</h1>
             <div className='flex gap-16 p-5'>
                 <div
                     className="flex bg-inputColor flex-col items-center justify-center w-60 h-64 p-4 border-[1px] border-dashed border-white rounded-md cursor-pointer hover:bg-inputColor"
@@ -126,7 +125,7 @@ const AddMovie = () => {
                             className='bg-primary w-full text-white rounded-md border-none outline-none p-3 text-h6'
                             onClick={handleSubmit}
                         >
-                            Submit
+                            Update
                         </button>
                     </div>
                 </div>
@@ -135,4 +134,4 @@ const AddMovie = () => {
     )
 }
 
-export default AddMovie
+export default EditMovie

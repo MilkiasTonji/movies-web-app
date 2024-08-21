@@ -13,7 +13,13 @@ export type ImageType = {
 }
 
 export type MovieType = {
-    thumbnail: StaticImageData;
+    id: number;
+    thumbnailUrl: string;
     title: string;
-    year: number;
+    publishingYear: number;
+}
+
+export type UserType = {
+    email: string;
+    password: string;
 }

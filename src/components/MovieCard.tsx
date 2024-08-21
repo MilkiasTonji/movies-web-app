@@ -1,21 +1,37 @@
 'use client';
 
-import { ImageType, MovieType } from '@/types';
+import { MovieType } from '@/types';
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
+import { FaEdit } from 'react-icons/fa';
 
 
-const MovieCard = ({thumbnail, title, year}: MovieType) => {
+const MovieCard = ({thumbnailUrl, title, publishingYear, id}: MovieType) => {
+
+    const router = useRouter()
+
+    const handleEdit = () => {
+        router.push(`movies/${id}`)
+    }
+
   return (
     <div className="flex w-[23.5%] flex-col items-start text-white bg-cardColor px-[8px] pt-[8px] pb-[16px]">
         <Image
-         src={thumbnail}
+         src={`http://localhost:5000${thumbnailUrl}`}
          alt={"Movie thumbinail"}
          width="266"
          height="400"
          className='rounded-md w-full h-[400px]'
         />
-        <p className='text-large'>{title}</p>
-        <p className='text-small'>{year}</p>
+        <div className='w-full flex items-center justify-between'>
+            <div>
+            <p className='text-large'>{title}</p>
+            <p className='text-small'>{publishingYear}</p>
+            </div>
+            <div className='hover:cursor-pointer' onClick={handleEdit}>
+                <FaEdit />
+            </div>
+        </div>
     </div>
   )
 }
