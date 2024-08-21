@@ -49,14 +49,14 @@ const MovieList = () => {
         },
       });
     
-      if (!response.ok) {
-        toast.error("Failed to fetch movies")
-      }
-    
-      const movies = await response.json();
-      console.log("movies: ", movies)
-      setMovies(movies)
-      return movies;
+      const resp = await response.json();
+      console.log("resp: ", resp)
+     if(resp.success){
+      const movies = resp.movies
+       setMovies(movies)
+     }else{
+      toast.error(resp.message)
+     }
     } catch (err: any) {
       toast.error(err)
     }finally{
