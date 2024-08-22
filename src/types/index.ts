@@ -13,7 +13,7 @@ export type ImageType = {
 }
 
 export type MovieType = {
-    id: number;
+    _id: number;
     thumbnailUrl: string;
     title: string;
     publishingYear: number;

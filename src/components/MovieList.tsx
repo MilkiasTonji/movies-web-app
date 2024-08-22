@@ -1,5 +1,4 @@
 "use client";
-import { data } from "@/utils/data";
 import MovieCard from "./MovieCard";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
@@ -15,13 +14,17 @@ const MovieList = () => {
   const [loading, setLoading] = useState<boolean>(true)
   
   useEffect(()=> {
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      toast.error("Unauthorized!")
+      router.push("/login")
+    }
     getMovies()
   },[])
   
   
   
   const addNewMovie = (): void => {
-    console.log("Adding new movie");
     router.push("/add-movie");
   };
 
@@ -50,7 +53,6 @@ const MovieList = () => {
       });
     
       const resp = await response.json();
-      console.log("resp: ", resp)
      if(resp.success){
       const movies = resp.movies
        setMovies(movies)
@@ -77,12 +79,12 @@ const MovieList = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center p-12 justify-center">
+    <div className="w-full flex flex-col items-center md:p-12 p-6 justify-center">
       {/* headaers */}
       <div className="w-full flex items-center justify-between text-white pb-5">
         <div className="flex items-center gap-2 hover:cursor-pointer">
-            <h1 className="text-h2">My Movies</h1>
-            <IoMdAddCircleOutline className="text-white mt-3 w-6 h-6" onClick={addNewMovie} />
+            <h1 className="md:text-h2 text:xsmall">My Movies</h1>
+            <IoMdAddCircleOutline className="text-white md:mt-3 md:w-6 md:h-6 w-4 h-4" onClick={addNewMovie} />
         </div>
 
         <div className="flex items-center gap-3 hover:cursor-pointer"
@@ -111,7 +113,7 @@ const MovieList = () => {
       {/* List of movies */}
       <div className="w-full flex flex-wrap items-center justify-start gap-5">
         {movies && movies.map((movie: MovieType, index: number) => (
-          <MovieCard thumbnailUrl={movie.thumbnailUrl} title={movie.title} publishingYear={movie.publishingYear} key={index} id={movie.id} />
+          <MovieCard thumbnailUrl={movie.thumbnailUrl} title={movie.title} publishingYear={movie.publishingYear} key={index} _id={movie._id} />
         ))}
       </div>
     </div>

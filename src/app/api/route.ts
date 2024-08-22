@@ -26,8 +26,6 @@ export default async function handler(
 ) {
   try {
     const {email, password} = req.body
-
-    console.log("data: ", email, password)
     const result = await loginHandler({email, password})
     res.status(200).json({ result })
   } catch (err) {

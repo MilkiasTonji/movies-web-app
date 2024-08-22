@@ -1,14 +1,14 @@
 'use client';
 
 import { UserType } from '@/types';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
-import Link from 'next/link'
 
 
-const Login = () => {
+const Register = () => {
     const router = useRouter();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -16,10 +16,8 @@ const Login = () => {
     const [isEmailEmpty, setIsEmailEmpty] = useState<boolean>(false)
     const [isEmailValid, setIsemailValid] = useState<boolean>(true)
 
-
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-
         if(!email){
             setIsEmailEmpty(true)
             return;
@@ -29,15 +27,15 @@ const Login = () => {
             return
         }
         
-
         setLoading(true)
+
         const data: UserType = {
             email,
             password
         };
 
         try {
-            const response: any = await fetch(`api/login`, {
+            const response: any = await fetch(`api/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
@@ -62,7 +60,6 @@ const Login = () => {
         }
     };
 
-
     const validateEmail = (email: string) => {
         const re = /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
         const valid =  re.test(String(email).toLowerCase());
@@ -70,11 +67,13 @@ const Login = () => {
         return valid;
       };
 
+
+
     return (
         <div className='w-box flex flex-col items-center gap-5'>
             <ToastContainer />
             <form className='w-full flex flex-col items-center p-2 gap-5' onSubmit={handleSubmit}>
-                <h1 className='text-h1 text-white my-4'>Sign in</h1>
+                <h1 className='text-h1 text-white my-4'>Sign up</h1>
                 <div className='w-full flex flex-col items-start'>
                 <input
                     type="email"
@@ -90,7 +89,6 @@ const Login = () => {
                 {isEmailEmpty && <span className='text-error text-xsmall'>Email is required</span>}
                 {!isEmailValid && <span className='text-error text-xsmall'>Please use a valid email address</span>}
                 </div>
-
                 <input
                     type="password"
                     name="password"
@@ -101,24 +99,13 @@ const Login = () => {
                         setPassword(event.target.value)
                     }}
                 />
-                <div className='flex items-center gap-3'>
-                    <input
-                        type="checkbox"
-                        name="rememberme"
-                        id="rememberme"
-                        checked
-                        className='accent-inputColor text-inputColor bg-inputColor focus:accent-inputColor'
-
-                    />
-                    <label htmlFor="rememberme" className='text-white'>Remember me</label>
-                </div>
 
                 <button
                     type="submit"
                     className={`bg-primary w-full text-white rounded-md border-none outline-none p-3 flex items-center justify-center relative`}
                 >
                     <span className='text-h6'>
-                        Login
+                        Sign up
                     </span>
                     {loading && (
                         <div role="status" className='absolute right-2 '>
@@ -130,13 +117,12 @@ const Login = () => {
                     )}
                 </button>
             </form>
-
             <div className='flex items-center justify-between text-white gap-2'>
-                <p>Don't have an account?</p>
-                <Link href="/register" className='text-primary'>Register</Link>
+                <p>Already have an account?</p>
+                <Link href="/login" className='text-primary'>Login</Link>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default Register;

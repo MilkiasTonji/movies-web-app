@@ -4,19 +4,20 @@ import { UserType } from '@/types';
 const url = process.env.NEXT_PUBLIC_BASE_URL;
 
 const loginHandler = async ({ email, password }: UserType) => {
-  const response: any = await fetch(`${url}/auth/login`, {
+  const response: any = await fetch(`${url}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
   });
 
   const res = await response.json();
+
   return res;
 };
 
 export async function POST(req: Request) {
   try {
-    const { email, password } = await req.json(); // Parse the JSON body
+    const { email, password } = await req.json(); 
 
 
     const result = await loginHandler({ email, password });
