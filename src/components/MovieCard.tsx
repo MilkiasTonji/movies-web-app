@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import { FaEdit } from 'react-icons/fa';
 
+const image_url = process.env.NEXT_PUBLIC_IMAGE_URL
 
 const MovieCard = ({thumbnailUrl, title, publishingYear, _id}: MovieType) => {
 
@@ -15,9 +16,9 @@ const MovieCard = ({thumbnailUrl, title, publishingYear, _id}: MovieType) => {
     }
 
   return (
-    <div className="flex w-full md:w-80 flex-col items-start text-white bg-cardColor px-[8px] pt-[8px] pb-[16px]">
+    <div className="flex w-full md:w-80 flex-col items-start text-white bg-cardColor px-[8px] pt-[8px] pb-[16px] transition ease-in-out delay-100 hover:-translate-y-2 hover:scale-110 duration-500 ">
         <Image
-         src={`http://localhost:5000${thumbnailUrl}`}
+         src={`${image_url}${thumbnailUrl}`}
          alt={"Movie thumbinail"}
          width="266"
          height="400"

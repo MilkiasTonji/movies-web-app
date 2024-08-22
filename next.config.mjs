@@ -9,6 +9,7 @@ const nextConfig = {
             pathname: '/**',
           },
         ],
+        domains: ['movies-api.mbwin.bet']
       },
 };
 

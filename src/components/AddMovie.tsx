@@ -44,9 +44,8 @@ const AddMovie = () => {
     };
 
     const handleSubmit = async () => {
-        setLoading(true)
         const token = localStorage.getItem('token');
-
+        
         if (!title || !publishingYear || !file) {
             toast.error("All fields are required, including the thumbnail.");
             return;
@@ -55,7 +54,9 @@ const AddMovie = () => {
         formData.append('title', title);
         formData.append('publishingYear', publishingYear);
         formData.append('thumbnailUrl', file);
-
+        
+        setLoading(true)
+        
         try {
             const response = await fetch('/api/movies', {
                 method: 'POST',

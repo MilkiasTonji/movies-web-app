@@ -2,6 +2,8 @@
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+const image_url = process.env.NEXT_PUBLIC_IMAGE_URL
+
 const EditMovie = () => {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -155,9 +157,9 @@ const EditMovie = () => {
                             onDrop={handleDrop}
                             onDragOver={(event) => event.preventDefault()}
                         >
-                            {previewUrl ? (
+                            {previewUrl || thumbnailUrl ? (
                                 <>
-                                    <img src={`${previewUrl ? previewUrl : `http://localhost:5000${thumbnailUrl}`}`} alt="Preview" className="max-h-48 mb-2" />
+                                    <img src={previewUrl || `${image_url}${thumbnailUrl}`} alt="Preview" className="max-h-48 mb-2" />
                                     <button
                                         type="button"
                                         onClick={handleCancel}
