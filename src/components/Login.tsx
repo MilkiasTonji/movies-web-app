@@ -132,7 +132,7 @@ const Login = () => {
             </form>
 
             <div className='flex items-center justify-between text-white gap-2'>
-                <p>Don't have an account?</p>
+                <p>Don&apos;t have an account?</p>
                 <Link href="/register" className='text-primary'>Register</Link>
             </div>
         </div>
